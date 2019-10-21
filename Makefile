@@ -12,6 +12,14 @@ mackerel-plugin-log-incr-rate: main.go
 linux: main.go
 	GOOS=linux GOARCH=amd64 go build $(LDFLAGS) -o mackerel-plugin-log-incr-rate
 
+deps:
+	go get -d
+	go mod tidy
+
+deps-update:
+	go get -u -d
+	go mod tidy
+
 clean:
 	rm -rf mackerel-plugin-log-incr-rate
 

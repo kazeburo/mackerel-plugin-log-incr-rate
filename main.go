@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/jessevdk/go-flags"
-	"github.com/kazeburo/mackerel-plugin-log-incr-rate/followparser"
+	"github.com/kazeburo/followparser"
 	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 )
@@ -32,7 +32,7 @@ func (lc *simpleCounter) Parse(b []byte) error {
 	return nil
 }
 
-func (lc *simpleCounter) Display(duration float64) {
+func (lc *simpleCounter) Finish(duration float64) {
 	lc.duration = duration
 }
 
