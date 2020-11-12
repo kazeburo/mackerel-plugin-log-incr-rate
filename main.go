@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"runtime"
 	"time"
 
 	"github.com/jessevdk/go-flags"
 	"github.com/kazeburo/followparser"
-	"go.uber.org/zap"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -44,17 +44,17 @@ func (lc *simpleCounter) GetDuration() float64 {
 	return lc.duration
 }
 
-func getStats(opts cmdOpts, logger *zap.Logger) error {
+func getStats(opts cmdOpts) error {
 	logCounter := &simpleCounter{}
 	baseLogCounter := &simpleCounter{}
 	var g errgroup.Group
 
 	g.Go(func() error {
-		return followparser.Parse("incr-rate-log", opts.LogFile, logCounter, logger)
+		return followparser.Parse("incr-rate-log", opts.LogFile, logCounter)
 	})
 
 	g.Go(func() error {
-		return followparser.Parse("incr-rate-base", opts.BaseLogFile, baseLogCounter, logger)
+		return followparser.Parse("incr-rate-base", opts.BaseLogFile, baseLogCounter)
 	})
 
 	if err := g.Wait(); err != nil {
@@ -112,10 +112,9 @@ func _main() int {
 		return 0
 	}
 
-	logger, _ := zap.NewProduction()
-	err = getStats(opts, logger)
+	err = getStats(opts)
 	if err != nil {
-		logger.Error("getStats", zap.Error(err))
+		log.Printf("getStats :%v", err)
 		return 1
 	}
 	return 0
