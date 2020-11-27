@@ -1,9 +1,8 @@
 # mackerel-plugin-log-incr-rate
 
-count log and compare base log increased
+Counts logs and measures the rate of log growth against base log
 
-
-## usage
+## Usage
 
 ```
 $ mackerel-plugin-log-incr-rate -h
@@ -21,7 +20,7 @@ Help Options:
 
 ```
 
-## example
+Sample
 
 ```
 $ mackerel-plugin-log-incr-rate --key-prefix err_per_access --log-file error_log --base-log-file access_log
@@ -29,3 +28,7 @@ log-incr-rate.err_per_access_count.log  438.986301      1571629417
 log-incr-rate.err_per_access_count.base 454.438356      1571629417
 log-incr-rate.err_per_access_rate.log   0.965997        1571629417
 ```
+
+## Install
+
+Please download release page or `mkr plugin install kazeburo/mackerel-plugin-log-incr-rate`.
